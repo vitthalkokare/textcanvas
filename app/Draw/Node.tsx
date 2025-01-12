@@ -41,13 +41,12 @@ const Node: React.FC<NodeProps> = ({ node, setNodes, onConnect, onRemove, isSele
 
   return (
     <div
-      className={` z-50 flex items-center justify-center rounded-lg shadow-md p-2 cursor-pointer scr`}
+      className={` z-50 flex bg-gray-300 items-center justify-center rounded-lg shadow-md p-2 cursor-pointer scr h-fit w-fit`}
       style={{
         position: "absolute",
         left: node.x,
         top: node.y,
         padding: "10px",
-        backgroundColor: "white",
         border: `2px solid ${isSelected ? "blue" : "black"}`,
         borderRadius: "5px",
         cursor: "pointer",
@@ -56,22 +55,20 @@ const Node: React.FC<NodeProps> = ({ node, setNodes, onConnect, onRemove, isSele
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
+      onMouseEnter={() => {
+        setIsLink(true);
+      }}
+      onMouseLeave={() => {
+        setIsLink(false);
+      }}
     >
-      <span
-        onMouseEnter={() => {
-          setIsLink(true);
-        }}
-        onMouseLeave={() => {
-          setIsLink(false);
-        }}
-        className={`text-gray-800 box-border p-3  font-semibold z-50`}
-      >
+      <span className={` box-border px-2  font-semibold z-50`}>
         {node.text}
 
         {isLink ? (
           <>
             <button
-              className=" px-1 z-50 bg-gray-200 dark:bg-gray-700 rounded-md  absolute left-0 -top-1 text-[13px]"
+              className=" px-1 z-50 bg-white dark:bg-white rounded-md border-1 border-black  absolute left-0 -top-1 text-[13px]"
               onClick={(e) => onConnect(node.id)}
             >
               +
@@ -88,8 +85,6 @@ const Node: React.FC<NodeProps> = ({ node, setNodes, onConnect, onRemove, isSele
           <></>
         )}
       </span>
-
-      
     </div>
   );
 };

@@ -30,13 +30,13 @@ const SidePanel: React.FC<SidePanelProps> = ({
 
   return (
     <div
-      className={`w-fit box-border flex flex-col justify-center z-30  items-center sticky top-0 left-0 bg-gray-900 p-3 ${
+      className={`w-fit box-border flex flex-col justify-center z-30  items-center sticky top-0 left-0 p-3 ${
         isPanelOpen ? "" : "hidden"
       }`}
     >
       <h2 className="text-lg font-semibold mb-4">Shapes</h2>
       <button
-        className={`w-fit p-2 mb-2 bg-white dark:bg-gray-700 rounded-md shadow-md ${
+        className={`w-fit p-2 mb-2 rounded-md shadow-md ${
           selectedShapeType === null ? "border-2 border-blue-500" : ""
         }`}
         onClick={() => setSelectedShapeType(null)}
@@ -46,7 +46,7 @@ const SidePanel: React.FC<SidePanelProps> = ({
       {shapes.map((shape) => (
         <button
           key={shape}
-          className={`w-fit flex flex-col p-2 mb-2 bg-white dark:bg-gray-700 rounded-md shadow-md ${
+          className={`w-fit hover:scale-110 flex flex-col p-2 mb-2 bg-white dark:bg-gray-700 rounded-md shadow-md ${
             selectedShapeType === shape ? "border-2 border-blue-500" : ""
           }`}
           onClick={() => setSelectedShapeType(shape)}

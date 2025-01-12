@@ -9,7 +9,7 @@ export const Topnav= ()=>{
 
     const handleTheme = ()=>{
 
-        isDarkMode
+        !isDarkMode
           ? document.body.setAttribute("class", "dark")
           : document.body.removeAttribute("class")
 

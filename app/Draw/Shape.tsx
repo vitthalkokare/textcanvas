@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Shape as ShapeInterface } from './types';
+import React, { useState } from "react";
+import { Shape as ShapeInterface } from "./types";
 
 type ShapeProps = {
   shape: ShapeInterface;
@@ -9,11 +9,20 @@ type ShapeProps = {
   isSelected: boolean;
 };
 
-const Shape: React.FC<ShapeProps> = ({ shape, setShapes, onConnect, onRemove, isSelected }) => {
+const Shape: React.FC<ShapeProps> = ({
+  shape,
+  setShapes,
+  onConnect,
+  onRemove,
+  isSelected,
+}) => {
   const [isResizing, setIsResizing] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-  const [startSize, setStartSize] = useState({ width: shape.width, height: shape.height });
-  const [startPosition, setStartPosition] = useState({ x: shape.x, y: shape.y });
+  const [startSize, setStartSize] = useState({
+    width: shape.width,
+    height: shape.height,
+  });
+  const [startPosition, setStartPosition] = useState({ x: 0, y: 0 });
 
   const handleMouseDown = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -45,50 +54,55 @@ const Shape: React.FC<ShapeProps> = ({ shape, setShapes, onConnect, onRemove, is
 
   return (
     <div
-    className='text-gray-200'
       style={{
-        position: 'absolute',
+        color:"white",
+        position: "absolute",
         left: shape.x,
         top: shape.y,
         width: shape.width,
         height: shape.height,
-        backgroundColor: 'transparent',
-        cursor: 'pointer',
+        backgroundColor: "transparent",
+        cursor: "pointer",
       }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onDoubleClick={handleDoubleClick}
-      onMouseDown={handleMouseDown}
-      onMouseMove={handleMouseMove}
-      onMouseUp={handleMouseUp}
     >
-      {shape.type === 'rectangle' && <div style={{ width: '100%', height: '100%', border: '2px solid black' }} />}
-      {shape.type === 'circle' && (
+      {shape.type === "rectangle" && (
+        <div
+          style={{ width: "100%", height: "100%", border: "2px solid black" }}
+        />
+      )}
+      {shape.type === "circle" && (
         <div
           style={{
-            width: '100%',
-            height: '100%',
-            borderRadius: '50%',
-            border: '2px solid black',
+            width: "100%",
+            height: "100%",
+            borderRadius: "50%",
+            border: "2px solid black",
           }}
         />
       )}
-      {shape.type === 'curve' && (
-        <svg style={{ width: '100%', height: '100%' }}>
+      {shape.type === "curve" && (
+        <svg style={{ width: "100%", height: "100%" }}>
           <path
-            d={`M0,${shape.height} Q${shape.width / 2},0 ${shape.width},${shape.height}`}
-            stroke="black"
-            strokeWidth="4"
+            d={`M0,${shape.height} Q${shape.width / 2},0 ${shape.width},${
+              shape.height
+            }`}
+            stroke="gray"
+            strokeWidth="2"
             fill="transparent"
           />
         </svg>
       )}
-      {shape.type === 'cubic-curve' && (
-        <svg style={{ width: '100%', height: '100%' }}>
+      {shape.type === "cubic-curve" && (
+        <svg style={{ width: "100%", height: "100%" }}>
           <path
-            d={`M0,${shape.height} C${shape.width / 4},0 ${(3 * shape.width) / 4},0 ${shape.width},${shape.height}`}
-            stroke="black"
-            strokeWidth="4"
+            d={`M0,${shape.height} C${shape.width / 4},0 ${
+              (3 * shape.width) / 4
+            },0 ${shape.width},${shape.height}`}
+            stroke="gray"
+            strokeWidth="2"
             fill="transparent"
           />
         </svg>
@@ -96,12 +110,13 @@ const Shape: React.FC<ShapeProps> = ({ shape, setShapes, onConnect, onRemove, is
       {isHovered && (
         <div
           style={{
-            position: 'absolute',
+            
+            position: "absolute",
             top: -20,
-            left: '50%',
-            transform: 'translateX(-50%)',
-            display: 'flex',
-            gap: '5px',
+            left: "50%",
+            transform: "translateX(-50%)",
+            display: "flex",
+            gap: "5px",
           }}
         >
           <button onClick={() => onConnect(shape.id)}>Connect</button>
@@ -111,15 +126,17 @@ const Shape: React.FC<ShapeProps> = ({ shape, setShapes, onConnect, onRemove, is
       {isResizing && (
         <div
           style={{
-            position: 'absolute',
+            position: "absolute",
             bottom: 0,
             right: 0,
-            width: '10px',
-            height: '10px',
-            backgroundColor: 'blue',
-            cursor: 'se-resize',
+            width: "10px",
+            height: "10px",
+            backgroundColor: "blue",
+            cursor: "se-resize",
           }}
           onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
         />
       )}
     </div>
